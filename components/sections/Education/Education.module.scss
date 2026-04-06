@@ -1,0 +1,82 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.education {
+    padding: $desktop-padding;
+    background-color: $background-color;
+
+    @include mobile {
+        padding: $mobile-padding;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        color: $text-color;
+        text-align: left;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .card {
+        padding: 2rem;
+        background: $surface-color;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        transition: border-color 0.2s ease;
+
+        &:hover {
+            border-color: $primary-color;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: $text-color;
+        }
+
+        .institution {
+            font-size: 1rem;
+            color: $primary-color;
+            margin-bottom: 0.25rem; // Reduced bottom margin
+            display: block;
+            font-weight: 600;
+        }
+
+        .year {
+            display: block;
+            font-size: 0.95rem;
+            color: $text-color;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: $muted-text;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid $border-color;
+        }
+
+        .score {
+            font-weight: 600;
+            color: $text-color;
+            display: block;
+            font-size: 0.95rem;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+// Modern Portfolio Palette
+
+// Primary Colors
+$primary-color: #3b82f6; // Blue
+$primary-hover: #2563eb;
+$secondary-color: #8b5cf6; // Violet
+$white: #ffffff;
+$warning-color: #f59e0b; // Amber/Goldients
+
+// Gradients
+$gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+$gradient-text: linear-gradient(90deg, #3b82f6, #8b5cf6);
+$gradient-card: linear-gradient(145deg, #ffffff, #f3f4f6);
+
+// Neutrals
+$background-color: #ffffff;
+$surface-color: #f8fafc;
+$text-color: #1e293b; // Slate 800
+$muted-text: #64748b; // Slate 500
+$border-color: #e2e8f0;
+
+// Accents
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$error-color: #ef4444;
+
+// Typography
+$font-family-base: 'Inter', sans-serif;
+$font-family-heading: 'Inter', sans-serif;
+
+// Spacing
+$desktop-padding: 0 2rem;
+$mobile-padding: 0 1rem;
+$container-width: 1200px;

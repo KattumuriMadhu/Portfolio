@@ -1,0 +1,208 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.footer {
+    background-color: #0f172a;
+    color: $muted-text;
+    padding: 4rem 0 2rem; // Increased padding for better spacing and to prevent cutoff
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: auto;
+    font-family: $font-family-base;
+    position: relative;
+    z-index: 10;
+    // overflow: hidden; // Removed to prevent cutting off content or shadows
+
+    // Ambient glow effect
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba($primary-color, 0.5), transparent);
+    }
+
+    .container {
+        max-width: $container-width;
+        margin: 0 auto;
+        padding: $desktop-padding;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: 768px) {
+            padding: $mobile-padding;
+        }
+    }
+
+    .content {
+        display: flex; // Changed to flex for better horizontal alignment
+        justify-content: space-between;
+        align-items: center; // Align items vertically center
+        gap: 2rem;
+        margin-bottom: 2rem; // Reduced margin
+        flex-wrap: wrap;
+
+        @media (max-width: 900px) {
+            flex-direction: column;
+            text-align: center;
+            gap: 2rem;
+        }
+    }
+
+    h3,
+    h4 {
+        color: $white;
+        margin-bottom: 0.5rem; // Reduced margin
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        display: none; // Hide headers for compact view (optional, but good for truly compact)
+    }
+
+    // Reformatted content: Brand | Links | Socials all in one line if possible
+
+    .brandColumn {
+        flex: 1;
+        min-width: 250px;
+
+        .brand {
+            font-size: 1.5rem; // Slightly smaller
+            background: $gradient-text;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            margin-bottom: 0.25rem;
+        }
+
+        .tagline {
+            max-width: 100%;
+            font-size: 0.9rem;
+            color: rgba($muted-text, 0.9);
+
+            @media (max-width: 900px) {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .linksColumn {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+
+        h4 {
+            display: none;
+        }
+
+        // Hide "Quick Links" title for compact horizontal bar
+
+        nav {
+            display: flex;
+            flex-direction: row; // Horizontal
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .navLink {
+                color: $muted-text;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                    color: $primary-color;
+                    text-shadow: 0 0 20px rgba($primary-color, 0.3);
+                }
+            }
+        }
+    }
+
+    .socialColumn {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        min-width: 200px;
+
+        @media (max-width: 900px) {
+            justify-content: center;
+        }
+
+        h4 {
+            display: none;
+        }
+
+        // Hide "Connect" title
+
+        .socialIcons {
+            display: flex;
+            gap: 0.75rem;
+
+            @media (max-width: 900px) {
+                justify-content: center;
+            }
+
+            .socialLink {
+                color: rgba(255, 255, 255, 0.7);
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px; // Smaller icons
+                height: 36px;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                cursor: pointer;
+
+                &:hover {
+                    color: $white;
+                    background-color: rgba($primary-color, 0.1);
+                    border-color: rgba($primary-color, 0.3);
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
+    }
+
+    .bottomBar {
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        color: rgba($muted-text, 0.7);
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .madeWith {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+
+            .heart {
+                color: $error-color;
+                fill: $error-color;
+                animation: beat 1.5s infinite alternate;
+                filter: drop-shadow(0 0 5px rgba($error-color, 0.4));
+            }
+        }
+    }
+}
+
+@keyframes beat {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.2);
+    }
+}

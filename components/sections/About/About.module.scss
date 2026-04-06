@@ -1,0 +1,301 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.about {
+    padding: 4rem 0; // Reduced from 6rem
+    position: relative;
+
+    @include mobile {
+        padding: 3rem 0;
+    }
+
+    .container {
+        max-width: $container-width;
+        margin: 0 auto;
+        padding: $desktop-padding;
+    }
+
+    .sectionTitle {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 3rem;
+        color: $text-color;
+
+        span {
+            color: $primary-color;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background: $gradient-primary;
+                border-radius: 2px;
+            }
+        }
+    }
+
+    // Bio Section
+    .bioSection {
+        max-width: 800px;
+        margin: 0 auto 3rem; // Reduced from 4rem
+        text-align: center;
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: $text-color;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: $muted-text;
+        }
+    }
+
+    // Skills Section
+    .skillsContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem; // Reduced from 3rem
+        margin-bottom: 3rem; // Reduced from 5rem
+
+        @include tablet {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+
+            @include mobile {
+                gap: 1.5rem;
+            }
+        }
+
+        .skillGroup {
+            h3 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                color: $text-color;
+            }
+
+            .skillCloud {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+
+            .skillTag {
+                padding: 0.6rem 1.2rem;
+                border-radius: 50px;
+                color: $text-color;
+                font-weight: 600;
+                font-size: 0.9rem;
+                background: rgba(255, 255, 255, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+                will-change: transform;
+
+                color: white; // Revert to white text since background is colored
+                border: none; // Remove border if we have colored bg
+
+                &:hover {
+                    transform: translateY(-3px) scale(1.05);
+                    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+                    filter: brightness(1.1);
+                }
+            }
+        }
+    }
+
+    // Timeline Grid (Education & Experience)
+    .timelineGrid {
+        display: flex;
+        align-items: flex-start;
+        gap: 4rem;
+
+        @include tablet {
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .leftColumn, .rightColumn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            min-width: 0;
+
+            @include tablet {
+                display: contents;
+            }
+        }
+
+        .column {
+            h3 {
+                font-size: 1.75rem;
+                font-weight: 800;
+                margin-bottom: 2rem;
+                color: $text-color;
+                position: relative;
+                display: inline-block;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: -8px;
+                    width: 40px;
+                    height: 4px;
+                    background: $primary-color;
+                    border-radius: 2px;
+                }
+            }
+        }
+
+        .timelineList {
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .timelineItem {
+            border-left: 2px solid rgba($primary-color, 0.2);
+            padding-left: 2rem;
+            padding-bottom: 3rem;
+            position: relative;
+
+            &:last-child {
+                border-left-color: transparent;
+                padding-bottom: 0;
+            }
+
+            // Glowing Node
+            &::before {
+                content: '';
+                position: absolute;
+                left: -6px;
+                top: 5px;
+                width: 10px;
+                height: 10px;
+                background: $primary-color;
+                border-radius: 50%;
+                box-shadow: 0 0 0 4px rgba($primary-color, 0.2);
+                transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+                z-index: 1;
+            }
+
+            &:hover::before {
+                background: $secondary-color;
+                box-shadow: 0 0 0 6px rgba($secondary-color, 0.3);
+                transform: scale(1.2);
+            }
+
+            h4 {
+                font-weight: 800;
+                font-size: 1.2rem;
+                color: $text-color;
+                margin-bottom: 0.5rem;
+            }
+
+            // Additional styles for company/meta
+            p {
+                margin-bottom: 0.5rem;
+                line-height: 1.6;
+                color: $muted-text;
+                font-size: 0.95rem;
+
+                &.company {
+                    color: $primary-color;
+                    font-weight: 600;
+                    display: inline-block;
+                    background: rgba($primary-color, 0.1);
+                    padding: 0.2rem 0.6rem;
+                    border-radius: 4px;
+                    margin-bottom: 1rem;
+                }
+
+                &.meta {
+                    color: $text-color;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    background: rgba(0, 0, 0, 0.05);
+                    display: inline-block;
+                    padding: 0.2rem 0.6rem;
+                    border-radius: 4px;
+                }
+
+                &.date {
+                    font-weight: 500;
+                    color: $text-color;
+                    margin-top: -0.3rem; // Pull closer to college name
+                    margin-bottom: 0.5rem;
+                }
+
+                &.description {
+                    background: $surface-color;
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    border: 1px solid rgba(0, 0, 0, 0.03);
+                    margin-top: 0.5rem;
+                    transition: transform 0.3s;
+
+                    &:hover {
+                        transform: translateX(5px);
+                        background: white;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                    }
+                }
+            }
+
+            .dateRow {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 0.5rem;
+                margin-top: -0.3rem;
+
+                @include mobile {
+                    gap: 0.4rem;
+                }
+
+                p.date {
+                    margin: 0; // Override existing margins to align with the link
+                    font-size: 1rem; // Adjusted size for large screens
+
+                    @include mobile {
+                        font-size: 0.8rem; // Slightly increased for mobile
+                        white-space: nowrap;
+                    }
+                }
+
+                .certLink {
+                    font-size: 0.9rem; // Adjusted size for large screens
+
+                    @include mobile {
+                        font-size: 0.75rem; // Slightly increased for mobile
+                        white-space: nowrap;
+                    }
+
+                    color: $primary-color;
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+                    display: inline-flex;
+                    align-items: center;
+
+                    &:hover {
+                        color: $secondary-color;
+                        text-decoration: underline; // Add it back on hover for UX
+                        text-decoration-color: $secondary-color;
+                        text-underline-offset: 3px;
+                    }
+                }
+            }
+        }
+    }
+}

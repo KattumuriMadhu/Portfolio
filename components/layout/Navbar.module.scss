@@ -1,0 +1,185 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.25rem 0;
+    background: rgba(255, 255, 255, 0.7); // High transparency for glass feel
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); // Subtle separator
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &.scrolled {
+        padding: 1rem 0;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(20px);
+    }
+
+    .container {
+        @include flex-between;
+        max-width: $container-width;
+        margin: 0 auto;
+        padding: $desktop-padding;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: $text-color;
+        text-decoration: none;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        span {
+            background: $gradient-text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    }
+
+    .navInner {
+        display: flex;
+        align-items: center;
+    }
+
+    .desktopMenu {
+        display: none;
+
+        @media (min-width: 768px) {
+            display: flex;
+            gap: 0.5rem; // Closer for pill shapes
+        }
+
+        .navLink {
+            color: $muted-text;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+
+            &:hover {
+                color: $primary-color;
+                background: rgba($primary-color, 0.05);
+            }
+        }
+    }
+
+}
+
+.mobileToggle {
+    display: block;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    cursor: pointer;
+    color: $text-color;
+    z-index: 2000; // Above everything
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    &.open {
+        background: transparent; // Clean look when open
+        border-color: transparent;
+        transform: rotate(90deg); // Rotate X icon
+    }
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+
+// Moved outside .navbar to support Portal rendering
+.mobileBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 1800; //Ensure high z-index
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    &.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+.mobileMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh; // Force full dynamic viewport height
+    min-height: 100vh; // Fallback
+    width: 75vw; // Slightly wider for better proportions
+    max-width: 320px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 6rem 2rem 2rem;
+    gap: 2rem;
+    z-index: 1900; // Higher than backdrop
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease; // Add visibility transition
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); // Stronger shadow
+    overflow-y: auto; // Allow scrolling if content is long
+    visibility: hidden; // Hide from DOM when closed
+
+    &.open {
+        transform: translateX(0);
+        visibility: visible; // Show when open
+    }
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+
+    .navLink {
+        color: $text-color;
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-align: left;
+        padding: 0.5rem 0;
+        transition: all 0.2s;
+        cursor: pointer;
+        width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+        &:hover {
+            color: $primary-color;
+            padding-left: 0.5rem; // Slight indent on hover
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
