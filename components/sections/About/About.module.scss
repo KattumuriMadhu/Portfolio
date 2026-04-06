@@ -281,6 +281,12 @@
                         white-space: nowrap;
                     }
 
+                    background: transparent;
+                    border: none;
+                    padding: 0;
+                    cursor: pointer;
+                    font-family: inherit;
+
                     color: $primary-color;
                     font-weight: 600;
                     text-decoration: none;

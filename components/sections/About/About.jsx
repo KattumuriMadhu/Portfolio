@@ -181,13 +181,13 @@ export function About() {
                                     <p className={styles.company}>EduSkills & AICTE</p>
                                     <div className={styles.dateRow}>
                                         <p className={styles.date}>• Jan 2026 - Mar 2026</p>
-                                        <a
-                                            href="#"
+                                        <button
+                                            type="button"
                                             onClick={(e) => openCertificate(e, "/Ai deploy.pdf")}
                                             className={styles.certLink}
                                         >
                                             View Certificate
-                                        </a>
+                                        </button>
                                     </div>
                                     <p className={styles.description}>
                                         Gained hands-on experience in deploying artificial intelligence models and building automation pipelines. Learned the fundamentals of model serving, performance optimization, and integrating AI features into production environments.
@@ -198,13 +198,13 @@ export function About() {
                                     <p className={styles.company}>EduSkills & AWS Skill Builder</p>
                                     <div className={styles.dateRow}>
                                         <p className={styles.date}>• Oct 2025 - Dec 2025</p>
-                                        <a
-                                            href="#"
+                                        <button
+                                            type="button"
                                             onClick={(e) => openCertificate(e, "/iot.pdf")}
                                             className={styles.certLink}
                                         >
                                             View Certificate
-                                        </a>
+                                        </button>
                                     </div>
                                     <p className={styles.description}>
                                         Explored the fundamentals of Internet of Things (IoT) and cloud integration using AWS services. Learned to manage connected devices, process telemetry data, and implement secure cloud architectures for IoT solutions.
@@ -215,13 +215,13 @@ export function About() {
                                     <p className={styles.company}>EduSkills & Google for Developers</p>
                                     <div className={styles.dateRow}>
                                         <p className={styles.date}>• Jul 2025 - Sep 2025</p>
-                                        <a
-                                            href="#"
+                                        <button
+                                            type="button"
                                             onClick={(e) => openCertificate(e, "/AIML.pdf")}
                                             className={styles.certLink}
                                         >
                                             View Certificate
-                                        </a>
+                                        </button>
                                     </div>
                                     <p className={styles.description}>
                                         Developed practical skills in Artificial Intelligence and Machine Learning. Covered foundational concepts such as data processing, training algorithms, and evaluating predictive models using modern frameworks.
@@ -232,13 +232,13 @@ export function About() {
                                     <p className={styles.company}>Andhra Pradesh State Skill Development Corporation (APSSDC)</p>
                                     <div className={styles.dateRow}>
                                         <p className={styles.date}>• April 2025 - June 2025</p>
-                                        <a
-                                            href="#"
+                                        <button
+                                            type="button"
                                             onClick={(e) => openCertificate(e, "/apssdc-intern.pdf")}
                                             className={styles.certLink}
                                         >
                                             View Certificate
-                                        </a>
+                                        </button>
                                     </div>
                                     <p className={styles.description}>
                                         Learned data preprocessing, analysis, and visualization using Python libraries (Pandas, NumPy, Seaborn). Implemented machine learning models like logistic regression on sample datasets.
@@ -249,13 +249,13 @@ export function About() {
                                     <p className={styles.company}>Demy Software Solutions – Visakhapatnam, India</p>
                                     <div className={styles.dateRow}>
                                         <p className={styles.date}>• June 2024 - July 2024</p>
-                                        <a
-                                            href="#"
+                                        <button
+                                            type="button"
                                             onClick={(e) => openCertificate(e, "/demi-intern.pdf")}
                                             className={styles.certLink}
                                         >
                                             View Certificate
-                                        </a>
+                                        </button>
                                     </div>
                                     <p className={styles.description}>
                                         Worked on real time DevOps tasks during a summer internship, including managing AWS EC2 instances, setting up CI/CD pipeline with Jenkins, and using Docker to streamline deployments. Actively contributed to deploying and managing applications while addressing real-world cloud and DevOps challenges.
