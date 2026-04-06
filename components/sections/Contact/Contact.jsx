@@ -12,6 +12,7 @@ import styles from "./Contact.module.scss";
 export function Contact() {
     // Removed formState to prevent re-renders on every keystroke (Fixes typing lag)
     const [status, setStatus] = useState("idle"); // idle, sending, success, error
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,6 +48,8 @@ export function Contact() {
             setTimeout(() => setStatus("idle"), 5000);
         } catch (error) {
             console.error("Error submitting form:", error);
+            const errorText = error.text || error.message || "Unknown error";
+            setErrorMessage(errorText);
             setStatus("error");
         }
     };
@@ -85,7 +88,7 @@ export function Contact() {
                                 <div className={styles.iconBox}>
                                     <Phone size={20} />
                                 </div>
-                                <span suppressHydrationWarning>{process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 XXXXX XXXXX"}</span>
+                                <span>+91 8688105610</span>
                             </div>
                             <div className={styles.item}>
                                 <div className={styles.iconBox}>
@@ -184,7 +187,7 @@ export function Contact() {
                             )}
                             {status === "error" && (
                                 <p className={styles.errorMessage}>
-                                    Something went wrong. Please try again or email me directly.
+                                    Failed to send: {errorMessage}
                                 </p>
                             )}
                         </form>
