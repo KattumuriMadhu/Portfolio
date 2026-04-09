@@ -15,7 +15,7 @@ const options = {
     standardFontDataUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/standard_fonts/`,
 };
 
-export function ResumeModal({ isOpen, onClose, resumeUrl = "/kattumuriMadhu.pdf" }) {
+export function ResumeModal({ isOpen, onClose, resumeUrl = "/KATTUMURI MADHU.pdf" }) {
     const [numPages, setNumPages] = useState(null);
     const [containerWidth, setContainerWidth] = useState(0);
     const [hasLoaded, setHasLoaded] = useState(false); // Track if we've ever opened it to keep PDF mounted
@@ -74,7 +74,7 @@ export function ResumeModal({ isOpen, onClose, resumeUrl = "/kattumuriMadhu.pdf"
         setNumPages(numPages);
     }
 
-    const isResume = resumeUrl.includes("resume");
+    const isResume = resumeUrl.toLowerCase().includes("resume") || resumeUrl.toLowerCase().includes("madhu");
     const headerTitle = isResume ? "My Resume" : "Certificate";
     const downloadName = isResume ? "resume.pdf" : "certificate.pdf";
 

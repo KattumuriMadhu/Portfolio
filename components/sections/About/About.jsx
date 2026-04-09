@@ -24,7 +24,7 @@ const softSkills = ["Analytical Skills", "Communication Skills", "Problem Solvin
 
 export function About() {
     const [isCertModalOpen, setIsCertModalOpen] = useState(false);
-    const [currentCertUrl, setCurrentCertUrl] = useState("/kattumuriMadhu.pdf");
+    const [currentCertUrl, setCurrentCertUrl] = useState("/KATTUMURI MADHU.pdf");
 
 
 
@@ -276,7 +276,7 @@ export function About() {
 
             {/* Hidden links for prefetching heavy PDFs so they load instantly */}
             <div style={{ display: 'none' }}>
-                <link rel="prefetch" href="/kattumuriMadhu.pdf" as="fetch" />
+                <link rel="prefetch" href="/KATTUMURI MADHU.pdf" as="fetch" />
                 <link rel="prefetch" href="/demi-intern.pdf" as="fetch" />
                 <link rel="prefetch" href="/apssdc-intern.pdf" as="fetch" />
                 <link rel="prefetch" href="/Ai deploy.pdf" as="fetch" />
