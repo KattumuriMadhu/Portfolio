@@ -25,7 +25,6 @@ export const Preloader = ({ onComplete }) => {
         exit: {
             opacity: 0,
             scale: 1.1,
-            filter: "blur(10px)",
             transition: {
                 duration: 0.8,
                 ease: "easeInOut",
@@ -34,11 +33,10 @@ export const Preloader = ({ onComplete }) => {
     };
 
     const fallDown = {
-        hidden: { y: -80, opacity: 0, filter: "blur(10px)" },
+        hidden: { y: -80, opacity: 0 },
         show: {
             y: 0,
             opacity: 1,
-            filter: "blur(0px)",
             transition: {
                 type: "spring",
                 damping: 12,
@@ -56,11 +54,10 @@ export const Preloader = ({ onComplete }) => {
     };
 
     const slideRight = {
-        hidden: { x: 50, opacity: 0, filter: "blur(5px)" },
+        hidden: { x: 50, opacity: 0 },
         show: {
             x: 0,
             opacity: 1,
-            filter: "blur(0px)",
             transition: {
                 type: "spring",
                 damping: 20,
@@ -84,8 +81,8 @@ export const Preloader = ({ onComplete }) => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900 via-[#0a0a0a] to-[#000000] pointer-events-none" />
 
             {/* Luxurious Ambient Glows */}
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none animate-pulse" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDelay: "1s" }} />
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
 
             {/* Welcome Text - Silver/White */}
             <motion.div variants={fallDown} className="mb-4 relative z-10">

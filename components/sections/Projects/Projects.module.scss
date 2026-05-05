@@ -79,6 +79,7 @@
         padding: 1.5rem; // Reduced from 1.75rem
         transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.4s, box-shadow 0.4s, border-color 0.4s;
         will-change: transform;
+        transform: translateZ(0);
         position: relative;
         overflow: hidden;
         display: flex;
@@ -96,7 +97,7 @@
         }
 
         &:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) translateZ(0);
             background: rgba(255, 255, 255, 0.75); // Slight brightening only
             box-shadow:
                 0 20px 40px -10px rgba(0, 0, 0, 0.08), // Neutral shadow

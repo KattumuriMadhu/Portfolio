@@ -120,6 +120,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+    will-change: opacity;
 
     &.open {
         opacity: 1;
@@ -147,14 +148,15 @@
     padding: 6rem 2rem 2rem;
     gap: 2rem;
     z-index: 1900; // Higher than backdrop
-    transform: translateX(100%);
+    transform: translateX(100%) translateZ(0);
+    will-change: transform, visibility;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease; // Add visibility transition
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); // Stronger shadow
     overflow-y: auto; // Allow scrolling if content is long
     visibility: hidden; // Hide from DOM when closed
 
     &.open {
-        transform: translateX(0);
+        transform: translateX(0) translateZ(0);
         visibility: visible; // Show when open
     }
 
