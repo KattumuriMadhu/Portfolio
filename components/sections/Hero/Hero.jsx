@@ -15,9 +15,10 @@ export function Hero() {
     const fullText = "Full Stack Developer";
 
     useEffect(() => {
+        let typingInterval;
         const startTimeout = setTimeout(() => {
             let index = 0;
-            const typingInterval = setInterval(() => {
+            typingInterval = setInterval(() => {
                 setText(fullText.slice(0, index + 1));
                 index++;
                 if (index > fullText.length) {
@@ -26,10 +27,12 @@ export function Hero() {
                     setTimeout(() => setIsTyping(false), 2000);
                 }
             }, 100);
-            return () => clearInterval(typingInterval);
         }, 1000); // 1s delay as requested
 
-        return () => clearTimeout(startTimeout);
+        return () => {
+            clearTimeout(startTimeout);
+            if (typingInterval) clearInterval(typingInterval);
+        };
     }, []);
 
     return (
@@ -55,7 +58,10 @@ export function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.1 }}
                     >
-                        {text.slice(0, 11)}<span className={styles.highlight}>{text.slice(11)}</span>
+                        {text.slice(0, 11)}
+                        {text.length > 11 && (
+                            <span className={styles.highlight}>{text.slice(11)}</span>
+                        )}
                         {isTyping && (
                             <span
                                 className={`${styles.cursor} ${text.length > 11 ? styles['gradient-cursor'] : ''}`}

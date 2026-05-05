@@ -135,7 +135,9 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                display: inline-block;
+                display: inline;
+                -webkit-box-decoration-break: clone;
+                box-decoration-break: clone;
             }
 
             .cursor {
