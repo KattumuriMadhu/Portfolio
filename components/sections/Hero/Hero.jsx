@@ -8,8 +8,7 @@ import { useState, useEffect } from "react";
 import styles from "./Hero.module.scss";
 import { ResumeModal } from "@/components/ui/ResumeModal";
 
-export function Hero() {
-    const [showResumeModal, setShowResumeModal] = useState(false);
+function TypingAnimation() {
     const [text, setText] = useState("");
     const [isTyping, setIsTyping] = useState(true);
     const fullText = "Full Stack Developer";
@@ -36,6 +35,24 @@ export function Hero() {
     }, []);
 
     return (
+        <>
+            {text.slice(0, 11)}
+            {text.length > 11 && (
+                <span className={styles.highlight}>{text.slice(11)}</span>
+            )}
+            {isTyping && (
+                <span
+                    className={`${styles.cursor} ${text.length > 11 ? styles['gradient-cursor'] : ''}`}
+                ></span>
+            )}
+        </>
+    );
+}
+
+export function Hero() {
+    const [showResumeModal, setShowResumeModal] = useState(false);
+
+    return (
         <section className={styles.hero} id="hero">
             <div className={styles.auroraBackground}>
                 <div className={styles.auroraBlob} />
@@ -58,15 +75,7 @@ export function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.1 }}
                     >
-                        {text.slice(0, 11)}
-                        {text.length > 11 && (
-                            <span className={styles.highlight}>{text.slice(11)}</span>
-                        )}
-                        {isTyping && (
-                            <span
-                                className={`${styles.cursor} ${text.length > 11 ? styles['gradient-cursor'] : ''}`}
-                            ></span>
-                        )}
+                        <TypingAnimation />
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 30 }}
