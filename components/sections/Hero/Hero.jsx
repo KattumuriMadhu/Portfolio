@@ -8,43 +8,76 @@ import { useState, useEffect } from "react";
 import styles from "./Hero.module.scss";
 import { ResumeModal } from "@/components/ui/ResumeModal";
 
+import { useRef } from "react";
+
 function TypingAnimation() {
-    const [text, setText] = useState("");
-    const [isTyping, setIsTyping] = useState(true);
-    const fullText = "Full Stack Developer";
+    const textRef1 = useRef(null);
+    const textRef2 = useRef(null);
+    const cursorRef = useRef(null);
+    const [isComplete, setIsComplete] = useState(false);
 
     useEffect(() => {
-        let typingInterval;
-        const startTimeout = setTimeout(() => {
-            let index = 0;
-            typingInterval = setInterval(() => {
-                setText(fullText.slice(0, index + 1));
-                index++;
-                if (index > fullText.length) {
-                    clearInterval(typingInterval);
-                    // Keep cursor for 2s then remove
-                    setTimeout(() => setIsTyping(false), 2000);
-                }
-            }, 100);
-        }, 1000); // 1s delay as requested
+        const fullText1 = "Full Stack ";
+        const fullText2 = "Developer";
+        const delay = 1000;
+        const speed = 70; // Faster, smoother typing
+        
+        let startTime = null;
+        let animationFrame;
 
-        return () => {
-            clearTimeout(startTimeout);
-            if (typingInterval) clearInterval(typingInterval);
+        const tick = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+
+            if (elapsed > delay) {
+                const totalChars = Math.floor((elapsed - delay) / speed);
+                
+                if (totalChars <= fullText1.length) {
+                    if (textRef1.current) {
+                        textRef1.current.textContent = fullText1.slice(0, totalChars);
+                    }
+                } else if (totalChars <= fullText1.length + fullText2.length) {
+                    if (textRef1.current && textRef1.current.textContent !== fullText1) {
+                        textRef1.current.textContent = fullText1;
+                    }
+                    if (textRef2.current) {
+                        textRef2.current.textContent = fullText2.slice(0, totalChars - fullText1.length);
+                    }
+                    if (cursorRef.current) {
+                        cursorRef.current.classList.add(styles['gradient-cursor']);
+                    }
+                } else {
+                    if (textRef2.current && textRef2.current.textContent !== fullText2) {
+                        textRef2.current.textContent = fullText2;
+                    }
+                    setIsComplete(true);
+                    return; // Stop animation
+                }
+            }
+            animationFrame = requestAnimationFrame(tick);
         };
+
+        animationFrame = requestAnimationFrame(tick);
+
+        return () => cancelAnimationFrame(animationFrame);
     }, []);
+
+    useEffect(() => {
+        if (isComplete) {
+            const timeout = setTimeout(() => {
+                if (cursorRef.current) {
+                    cursorRef.current.style.display = 'none';
+                }
+            }, 2000);
+            return () => clearTimeout(timeout);
+        }
+    }, [isComplete]);
 
     return (
         <>
-            {text.slice(0, 11)}
-            {text.length > 11 && (
-                <span className={styles.highlight}>{text.slice(11)}</span>
-            )}
-            {isTyping && (
-                <span
-                    className={`${styles.cursor} ${text.length > 11 ? styles['gradient-cursor'] : ''}`}
-                ></span>
-            )}
+            <span ref={textRef1}></span>
+            <span ref={textRef2} className={styles.highlight}></span>
+            <span ref={cursorRef} className={styles.cursor}></span>
         </>
     );
 }
