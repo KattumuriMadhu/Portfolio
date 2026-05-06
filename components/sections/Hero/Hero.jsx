@@ -20,8 +20,8 @@ function TypingAnimation() {
         const fullText1 = "Full Stack ";
         const fullText2 = "Developer";
         const delay = 1000;
-        const speed = 70; // Faster, smoother typing
-        
+        const speed = 120; // Slower, more natural typing speed
+
         let startTime = null;
         let animationFrame;
 
@@ -31,7 +31,7 @@ function TypingAnimation() {
 
             if (elapsed > delay) {
                 const totalChars = Math.floor((elapsed - delay) / speed);
-                
+
                 if (totalChars <= fullText1.length) {
                     if (textRef1.current) {
                         textRef1.current.textContent = fullText1.slice(0, totalChars);
