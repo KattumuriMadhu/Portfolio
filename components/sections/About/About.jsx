@@ -258,7 +258,7 @@ export function About() {
                                         </button>
                                     </div>
                                     <p className={styles.description}>
-                                        As a Cloud and DevOps Intern, I learned the fundamentals of cloud computing and DevOps practices, including cloud service models, virtualization, and deployment strategies. I gained hands-on knowledge of Linux administration, Git version control, CI/CD pipelines, automation, and containerization concepts. I also developed an understanding of infrastructure management, application deployment, monitoring, and best practices for maintaining scalable and reliable cloud-based systems.
+                                        As a Cloud and DevOps Intern, I learned the fundamentals of cloud computing and DevOps practices, including cloud service models, virtualization, and deployment strategies. I gained hands-on knowledge of Linux administration, Git version control, CI/CD pipelines, automation, and containerization concepts.
                                     </p>
                                 </div>
                             </div>
