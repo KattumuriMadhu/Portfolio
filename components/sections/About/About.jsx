@@ -258,7 +258,7 @@ export function About() {
                                         </button>
                                     </div>
                                     <p className={styles.description}>
-                                        Worked on real time DevOps tasks during a summer internship, including managing AWS EC2 instances, setting up CI/CD pipeline with Jenkins, and using Docker to streamline deployments. Actively contributed to deploying and managing applications while addressing real-world cloud and DevOps challenges.
+                                        As a Cloud and DevOps Intern, I learned the fundamentals of cloud computing and DevOps practices, including cloud service models, virtualization, and deployment strategies. I gained hands-on knowledge of Linux administration, Git version control, CI/CD pipelines, automation, and containerization concepts. I also developed an understanding of infrastructure management, application deployment, monitoring, and best practices for maintaining scalable and reliable cloud-based systems.
                                     </p>
                                 </div>
                             </div>
