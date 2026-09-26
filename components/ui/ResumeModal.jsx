@@ -4,16 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { X, Download, FileText, Loader2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Document, Page, pdfjs } from 'react-pdf';
+import dynamic from "next/dynamic";
 
-// Configure worker locally (standard for Next.js)
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+const PdfViewer = dynamic(() => import("./PdfViewer"), {
+    ssr: false,
+    loading: () => (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 z-10 w-full h-full gap-3">
+            <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+            <span className="text-sm text-gray-500 font-medium">Loading Document...</span>
+        </div>
+    ),
+});
 
-const options = {
-    cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
-    cMapPacked: true,
-    standardFontDataUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/standard_fonts/`,
-};
 
 export function ResumeModal({ isOpen, onClose, resumeUrl = "/Kattumuri_Madhu.pdf" }) {
     const [numPages, setNumPages] = useState(null);
@@ -167,52 +169,22 @@ export function ResumeModal({ isOpen, onClose, resumeUrl = "/Kattumuri_Madhu.pdf
                     {/* PDF Viewer */}
                     <div className="flex-1 bg-gray-100 overflow-y-auto relative min-h-[30vh] sm:min-h-[50vh]" ref={containerRef}>
                         {hasLoaded ? (
-                            <Document
-                                key={resumeUrl}
-                                file={resumeUrl}
-                                options={options}
-                                onLoadSuccess={onDocumentLoadSuccess}
-                                loading={
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 z-10 w-full h-full gap-3">
-                                        <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
-                                        <span className="text-sm text-gray-500 font-medium">Loading Document...</span>
-                                    </div>
-                                }
-                                error={
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 z-10 w-full h-full text-red-500 gap-3">
-                                        <p>Failed to load PDF.</p>
-                                        <span
-                                            onClick={() => window.open(resumeUrl, "_blank")}
-                                            className="underline cursor-pointer"
-                                        >
-                                            Open directly
-                                        </span>
-                                    </div>
-                                }
-                                className="flex flex-col items-center min-h-full"
-                            >
-                                {numPages && Array.from(new Array(numPages), (el, index) => (
-                                    <Page
-                                        key={`page_${index + 1}`}
-                                        pageNumber={index + 1}
-                                        width={containerWidth ? containerWidth : undefined}
-                                        devicePixelRatio={pdfQuality}
-                                        renderTextLayer={false}
-                                        renderAnnotationLayer={false}
-                                        className="shadow-lg mb-4 last:mb-0"
-                                    />
-                                ))}
-                            </Document>
+                            <PdfViewer
+                                resumeUrl={resumeUrl}
+                                containerWidth={containerWidth}
+                                pdfQuality={pdfQuality}
+                                numPages={numPages}
+                                onDocumentLoadSuccess={onDocumentLoadSuccess}
+                            />
                         ) : (
-                            // Lightweight Skeleton Loading State (Shown during open animation)
-                            // RELATIVE positioning + height ensures modal doesn't collapse
+                            // Lightweight Skeleton Loading State
                             <div className="relative h-[60dvh] sm:h-[80vh] flex flex-col items-center justify-center bg-gray-100 z-10 w-full gap-3">
-                                {/* Invisible placeholder text to hold structure if needed, or rely on flex + height */}
+                                <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
                             </div>
                         )}
                     </div>
                 </div>
-            </motion.div >
-        </div >
+            </motion.div>
+        </div>
     );
 }
