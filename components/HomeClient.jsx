@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Preloader } from "@/components/ui/Preloader";
+import { LoadingContext } from "@/lib/LoadingContext";
 
 export default function HomeClient({ children }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +16,7 @@ export default function HomeClient({ children }) {
     }, []);
 
     return (
-        <>
+        <LoadingContext.Provider value={{ isLoading, isLoaded: !isLoading }}>
             <AnimatePresence>
                 {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
             </AnimatePresence>
@@ -23,7 +24,8 @@ export default function HomeClient({ children }) {
             <div className="flex flex-col min-h-screen">
                 {children}
             </div>
-        </>
+        </LoadingContext.Provider>
     );
 }
+
 

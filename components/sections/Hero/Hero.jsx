@@ -4,23 +4,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText, X, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./Hero.module.scss";
 import { ResumeModal } from "@/components/ui/ResumeModal";
+import { useLoading } from "@/lib/LoadingContext";
 
-import { useRef } from "react";
-
-function TypingAnimation() {
+function TypingAnimation({ start = true }) {
     const textRef1 = useRef(null);
     const textRef2 = useRef(null);
     const cursorRef = useRef(null);
     const [isComplete, setIsComplete] = useState(false);
 
     useEffect(() => {
+        if (!start) {
+            if (textRef1.current) textRef1.current.textContent = "";
+            if (textRef2.current) textRef2.current.textContent = "";
+            return;
+        }
+
         const fullText1 = "Full Stack ";
         const fullText2 = "Developer";
-        const delay = 1000;
-        const speed = 120; // Slower, more natural typing speed
+        const delay = 400; // Natural delay after preloader reveals hero
+        const speed = 100; // Smooth typing cadence
 
         let startTime = null;
         let animationFrame;
@@ -51,7 +56,7 @@ function TypingAnimation() {
                         textRef2.current.textContent = fullText2;
                     }
                     setIsComplete(true);
-                    return; // Stop animation
+                    return;
                 }
             }
             animationFrame = requestAnimationFrame(tick);
@@ -60,7 +65,7 @@ function TypingAnimation() {
         animationFrame = requestAnimationFrame(tick);
 
         return () => cancelAnimationFrame(animationFrame);
-    }, []);
+    }, [start]);
 
     useEffect(() => {
         if (isComplete) {
@@ -83,6 +88,7 @@ function TypingAnimation() {
 }
 
 export function Hero() {
+    const { isLoaded } = useLoading();
     const [showResumeModal, setShowResumeModal] = useState(false);
 
     return (
@@ -96,7 +102,7 @@ export function Hero() {
                 <div className={styles.content}>
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8 }}
                     >
                         Hi, I&apos;m <span className={styles.firstName}>Madhu</span> <span className={styles.lastName}>Kattumuri</span>
@@ -105,14 +111,14 @@ export function Hero() {
                     <motion.h2
                         className={styles.typingText}
                         initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8, delay: 0.1 }}
                     >
-                        <TypingAnimation />
+                        <TypingAnimation start={isLoaded} />
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                         Motivated B-Tech student and Full Stack Developer passionate about building robust web applications using React.js, Node.js, and Python.
@@ -120,7 +126,7 @@ export function Hero() {
                     <motion.div
                         className={styles.buttons}
                         initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
                     >
                         <Button
@@ -168,7 +174,7 @@ export function Hero() {
                 <motion.div
                     className={styles.imageWrapper}
                     initial={{ opacity: 0, scale: 0.8, x: 50 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    animate={isLoaded ? { opacity: 1, scale: 1, x: 0 } : { opacity: 0, scale: 0.8, x: 50 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
                     <div className={styles.imageContainer}>

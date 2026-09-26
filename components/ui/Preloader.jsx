@@ -11,7 +11,7 @@ export const Preloader = ({ onComplete }) => {
         setMounted(true);
         const timeout = setTimeout(() => {
             onComplete();
-        }, 3000);
+        }, 3600);
 
         return () => clearTimeout(timeout);
     }, [onComplete]);
@@ -56,30 +56,30 @@ export const Preloader = ({ onComplete }) => {
             <div className="relative z-10 flex flex-col items-center justify-center px-4">
                 {/* Welcome Text */}
                 <motion.div
-                    initial={{ opacity: 0, y: -12 }}
+                    initial={{ opacity: 0, y: -14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-                    className="mb-3 sm:mb-4"
+                    transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="mb-3 sm:mb-5"
                 >
-                    <p className="text-xs sm:text-sm md:text-base font-semibold tracking-[0.35em] sm:tracking-[0.45em] text-slate-400 uppercase text-center font-sans">
+                    <p className="text-xs sm:text-sm md:text-base font-medium tracking-[0.35em] sm:tracking-[0.45em] text-slate-400 uppercase text-center font-sans">
                         Welcome to
                     </p>
                 </motion.div>
 
                 {/* Name */}
                 <div className="text-center flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-5 gap-y-1 py-1 sm:py-2">
-                    {words.map((word, wordIdx) => (
-                        <span key={wordIdx} className="inline-flex whitespace-nowrap">
-                            {word.split("").map((char, charIdx) => {
-                                const totalIndex = wordIdx === 0 ? charIdx : words[0].length + charIdx;
-                                return (
+                    {words.map((word, wordIdx) => {
+                        const wordDelayOffset = wordIdx === 0 ? 0.55 : 0.55 + words[0].length * 0.075 + 0.12;
+                        return (
+                            <span key={wordIdx} className="inline-flex whitespace-nowrap">
+                                {word.split("").map((char, charIdx) => (
                                     <motion.span
                                         key={charIdx}
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 22 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{
-                                            duration: 0.45,
-                                            delay: 0.25 + totalIndex * 0.035,
+                                            duration: 0.55,
+                                            delay: wordDelayOffset + charIdx * 0.075,
                                             ease: [0.22, 1, 0.36, 1],
                                         }}
                                         className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black inline-block tracking-tight"
@@ -96,18 +96,18 @@ export const Preloader = ({ onComplete }) => {
                                             {char}
                                         </span>
                                     </motion.span>
-                                );
-                            })}
-                        </span>
-                    ))}
+                                ))}
+                            </span>
+                        );
+                    })}
                 </div>
 
                 {/* Portfolio Tagline */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.75, ease: "easeOut" }}
-                    className="mt-6 sm:mt-8"
+                    transition={{ duration: 0.65, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
+                    className="mt-6 sm:mt-9"
                 >
                     <div className="flex items-center gap-4 sm:gap-6">
                         <div className="h-[1px] w-10 sm:w-20 md:w-28 bg-gradient-to-r from-transparent to-slate-500" />
@@ -127,5 +127,6 @@ export const Preloader = ({ onComplete }) => {
 
     return createPortal(preloaderContent, document.body);
 };
+
 
 
